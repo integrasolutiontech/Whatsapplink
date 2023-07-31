@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WhatsApp Link Generator for Egypt</title>
+  <!-- Add your Bootstrap CDN link here -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container mt-5">
+    <h2>WhatsApp Link Generator for Egypt</h2>
+    <form id="whatsappForm">
+      <div class="form-group">
+        <label for="phone">Enter Phone Number:</label>
+        <input type="tel" class="form-control" id="phone" name="phone" required>
+      </div>
+      <div class="form-group">
+        <label for="countryCode">Select Country Code:</label>
+        <select class="form-control" id="countryCode" name="countryCode" disabled>
+          <option value="+2">Egypt (+20)</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Generate WhatsApp Link</button>
+    </form>
+    <div class="mt-3">
+      <p>Generated WhatsApp Link:</p>
+      <p id="whatsappLink"></p>
+      <button class="btn btn-secondary" id="copyButton">Copy</button>
+      <a class="btn btn-success" id="openButton" href="#" target="_blank" role="button">Open in WhatsApp</a>
+    </div>
+  </div>
+
+  <!-- Add your Bootstrap and JavaScript CDN links here -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      $("#whatsappForm").submit(function(e) {
+        e.preventDefault();
+        const phone = $("#phone").val();
+        const countryCode = "+2"; // Egypt country code
+        const whatsappLink = `https://wa.me/${countryCode}${phone}`;
+        $("#whatsappLink").text(whatsappLink);
+
+        // Enable the buttons after generating the link
+        $("#copyButton").prop("disabled", false);
+        $("#openButton").prop("disabled", false);
+        $("#openButton").attr("href", whatsappLink);
+      });
+
+      $("#copyButton").click(function() {
+        const whatsappLink = $("#whatsappLink").text();
+        copyToClipboard(whatsappLink);
+      });
+    });
+
+    function copyToClipboard(text) {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textarea);
+      alert("Link copied to clipboard!");
+    }
+  </script>
+</body>
+</html>
